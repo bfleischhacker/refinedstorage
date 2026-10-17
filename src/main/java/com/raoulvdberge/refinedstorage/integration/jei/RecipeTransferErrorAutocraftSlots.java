@@ -23,11 +23,14 @@ public class RecipeTransferErrorAutocraftSlots implements IRecipeTransferError {
     private final Collection<Integer> slots;
     private final Collection<Integer> autocraftSlots;
     private final List<String> message = new ArrayList<>();
+    private final Runnable request;
 
-    public RecipeTransferErrorAutocraftSlots(String message, String autocraftMessage, Collection<Integer> slots, Collection<Integer> autocraftSlots) {
+    public RecipeTransferErrorAutocraftSlots(String message, String autocraftMessage, Collection<Integer> slots, Collection<Integer> autocraftSlots, Runnable request) {
+        this.request = request;
         this.message.add(I18n.format("jei.tooltip.transfer"));
         this.message.add(TextFormatting.RED + message);
         this.message.add(TextFormatting.BLUE + autocraftMessage);
+        this.message.add(I18n.format("gui.refinedstorage:jei.request.gesture"));
 
         this.slots = slots;
         this.autocraftSlots = autocraftSlots;
@@ -40,6 +43,7 @@ public class RecipeTransferErrorAutocraftSlots implements IRecipeTransferError {
 
     @Override
     public void showError(Minecraft minecraft, int mouseX, int mouseY, IRecipeLayout recipeLayout, int recipeX, int recipeY) {
+        JeiCraftingGesture.hover(recipeLayout, request);
         IGuiItemStackGroup itemStackGroup = recipeLayout.getItemStacks();
         Map<Integer, ? extends IGuiIngredient<ItemStack>> ingredients = itemStackGroup.getGuiIngredients();
         for (Integer slotIndex : slots) {

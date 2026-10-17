@@ -452,7 +452,7 @@ public class GuiGrid extends GuiBase implements IResizableDisplay {
                 IGridStack stack = view.getStacks().get(slotNumber);
 
                 if (isPulling) {
-                    if (stack.isCraftable() && view.canCraft() && (stack.doesDisplayCraftText() || (GuiScreen.isShiftKeyDown() && GuiScreen.isCtrlKeyDown()))) {
+                    if (stack.isCraftable() && view.canCraft() && (stack.doesDisplayCraftText() || CraftingRequestGesture.isActive())) {
                         FMLCommonHandler.instance().showGuiScreen(new GuiGridCraftingSettings(this, ((ContainerGrid) this.inventorySlots).getPlayer(), stack));
                     } else if (grid.getGridType() == GridType.FLUID && held.isEmpty()) {
                         RS.INSTANCE.network.sendToServer(new MessageGridFluidPull(view.getStacks().get(slotNumber).getHash(), GuiScreen.isShiftKeyDown()));

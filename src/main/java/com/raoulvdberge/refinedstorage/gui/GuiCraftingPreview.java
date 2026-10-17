@@ -63,6 +63,7 @@ public class GuiCraftingPreview extends GuiBase {
     private IElementDrawers drawers = new CraftingPreviewElementDrawers();
 
     private boolean fluids;
+    private boolean requestSubmitted;
 
     public GuiCraftingPreview(GuiScreen parent, List<ICraftingPreviewElement> stacks, int hash, int quantity, boolean fluids) {
         super(new Container() {
@@ -243,7 +244,14 @@ public class GuiCraftingPreview extends GuiBase {
     }
 
     private void startRequest() {
+        if (requestSubmitted || !startButton.enabled) { return; }
+        requestSubmitted = true;
+        startButton.enabled = false;
         RS.INSTANCE.network.sendToServer(new MessageGridCraftingStart(hash, quantity, fluids));
+
+        if (parent instanceof ICraftingRequestConfirmation) {
+            ((ICraftingRequestConfirmation) parent).onRequestSubmitted(hash);
+        }
 
         close();
     }

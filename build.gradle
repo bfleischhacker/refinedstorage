@@ -1,9 +1,9 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = "https://maven.minecraftforge.net"
         }
     }
     dependencies {
@@ -16,7 +16,7 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.6.16.h20a"
+version = "1.6.16.h20a-jei.1"
 def env = System.getenv()
 if (env.BUILD_NUMBER) {
     version = version + "-" + "${env.BUILD_NUMBER}"
@@ -39,11 +39,12 @@ minecraft {
 }
 
 repositories {
+    mavenCentral()
     maven {
-        url "http://dvs1.progwml6.com/files/maven"
+        url "https://dvs1.progwml6.com/files/maven"
     }
     maven {
-        url "http://maven.cil.li"
+        url "https://maven.cil.li"
     }
     maven {
         name = "CurseForge"
@@ -52,6 +53,7 @@ repositories {
 }
 
 dependencies {
+    testCompile 'junit:junit:4.13.2'
     deobfCompile "mezz.jei:jei_1.12.2:4.15.0.287:api"
     runtime "mezz.jei:jei_1.12.2:4.15.0.287"
     deobfCompile "li.cil.oc:OpenComputers:MC1.12.2-1.7.2.67:api"

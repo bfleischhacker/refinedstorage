@@ -379,3 +379,7 @@ advancements.refinedstorage:hollow_covering=Hollow covering
 advancements.refinedstorage:hollow_covering.description=Craft a Hollow Cover to hide cables, but still let cable through
 advancements.refinedstorage:binding=Binding
 advancements.refinedstorage:binding.description=Craft Processor Binding to craft the various processors
+gui.refinedstorage:jei.request.gesture=Ctrl+Shift+click + to request missing crafts
+gui.refinedstorage:jei.request.title=Missing ingredient crafting
+gui.refinedstorage:jei.request.review=Select each item to review and request.
+gui.refinedstorage:jei.request.uncraftable=Red inputs still need to be supplied manually.

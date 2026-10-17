@@ -4,6 +4,7 @@ import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
+import net.minecraftforge.common.MinecraftForge;
 
 @JEIPlugin
 public class RSJEIPlugin implements IModPlugin {
@@ -14,6 +15,7 @@ public class RSJEIPlugin implements IModPlugin {
     @Override
     public void register(IModRegistry registry) {
         INSTANCE = this;
+        MinecraftForge.EVENT_BUS.register(new JeiCraftingGesture());
 
         registry.getRecipeTransferRegistry().addUniversalRecipeTransferHandler(new RecipeTransferHandlerGrid(registry.getJeiHelpers().recipeTransferHandlerHelper()));
 
