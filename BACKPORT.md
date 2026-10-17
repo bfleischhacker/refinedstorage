@@ -56,9 +56,11 @@ change prevents multiple submissions from one confirmation screen.
 
 ## Build and verification
 
-Use a Java 8 **JDK**, independently of the game's chosen Java runtime. For this
-checkout the isolated JDK is `.toolchain/jdk8u504-b01`. Gradle 4.2.1 and
-ForgeGradle 2.3 are retained; obsolete repository URLs now use HTTPS.
+Use a Java 8 **JDK**, independently of the game's chosen Java runtime. The
+following example assumes a JDK extracted to `.toolchain/jdk8u504-b01`; adjust
+`JAVA_HOME` to your installation. Gradle 4.2.1 and ForgeGradle 2.3 are retained;
+obsolete repository URLs now use HTTPS. The existing build-time JEI dependency
+remains 4.15.0.287; the gameplay verification below used 4.14.3.242.
 
 ```powershell
 $env:JAVA_HOME = "$PWD/.toolchain/jdk8u504-b01"
@@ -80,8 +82,15 @@ RS NBT, metadata, wildcard and durability comparisons. Test reports are in
 `build/reports/tests/test/index.html`. Server permission/resource enforcement
 is preserved by routing through the existing request and preview packets.
 
-These checks do not establish in-game startup or interaction success. Before
-general use, verify in the isolated Ultimate Alchemy test instance:
+The pack player also verified the installed build in an isolated Ultimate
+Alchemy Minecraft 1.12.2 instance with Forge 14.23.5.2859, JEI 4.14.3.242 and
+Refined Storage Addons 0.4.5. They confirmed that modifier-clicking JEI's plus
+opened the missing-ingredient flow and that selecting, reviewing and requesting
+crafts worked successfully. This is a reported gameplay check of that flow,
+not comprehensive coverage of every recipe, multiplayer permissions or the
+edge cases below.
+
+For broader pack validation, use an isolated test instance:
 
 1. Save and fully exit; back up saves and the current h20a jar.
 2. Replace only the RS jar in the **test** instance, retaining addons and JEI.
@@ -94,6 +103,6 @@ general use, verify in the isolated Ultimate Alchemy test instance:
 6. Confirm red/blue highlights remain and the same modifiers request crafts in
    the normal grid. Requesting from a filtered search must use all network stock.
 
-Never change the original Ultimate Alchemy instance or copy test saves back.
+Keep the original pack instance separate and do not copy test saves back.
 Rollback: exit the test instance, remove the `h20a-jei.1` jar and restore the
 saved `refinedstorage-1.6.16.h20a.jar`. No world migration is performed.
